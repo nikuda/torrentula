@@ -11,11 +11,11 @@ data Info = Info
   , pieces :: String
   } deriving (Eq, Show)
 
-data File = File
+newtype File = File
   { fileLength :: Int
   } deriving (Eq, Show)
 
-data Files = Files
+newtype Files = Files
   { files :: [FilesInfo]
   } deriving (Eq, Show)
 
