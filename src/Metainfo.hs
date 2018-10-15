@@ -1,25 +1,43 @@
 module Metainfo where
 
+import Data.ByteString
 import Network.URI
 
 newtype Announce = Announce URI
   deriving (Eq, Show)
 
-data Info = Info
-  { name :: Maybe String
+newtype FileName = FileName ByteString
+  deriving (Eq, Show)
+
+newtype DirectoryName = DirectoryName ByteString
+  deriving (Eq, Show)
+
+newtype SHA1 = SHA1 ByteString
+  deriving (Eq, Show)
+
+data MetaInfo = MetaInfo
+  { announce :: Announce
+  , info :: Info
+  }
+
+data Info = Info BaseInfo (Either FileInfo FilesInfo)
+
+data BaseInfo = BaseInfo
+  { pieces :: [SHA1]
   , pieceLength :: Int
-  , pieces :: String
   } deriving (Eq, Show)
 
-newtype File = File
-  { fileLength :: Int
-  } deriving (Eq, Show)
-
-newtype Files = Files
-  { files :: [FilesInfo]
+data FileInfo = FileInfo
+  { name :: FileName
+  , length :: Int
   } deriving (Eq, Show)
 
 data FilesInfo = FilesInfo
-  { filesLength :: Int
-  , path :: [String]
+  { directory :: DirectoryName
+  , files :: [File]
+  } deriving (Eq, Show)
+
+data File = File
+  { fileLength :: Int
+  , filePath :: [DirectoryName] -- Last item is name of a file
   } deriving (Eq, Show)
