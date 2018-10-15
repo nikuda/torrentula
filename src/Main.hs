@@ -5,6 +5,7 @@ import System.Environment
 import Data.BEncode
 import Data.BEncode.Types (BDict)
 import qualified Data.ByteString as BS
+import Metainfo
 
 main :: IO ()
 main = do
@@ -13,4 +14,4 @@ main = do
 
   case decode content :: (Result BDict) of
     Left  err -> hPutStrLn stderr err
-    Right ben -> print $ toBEncode ben
+    Right ben -> print $ (fromBEncode $ toBEncode ben :: Result FileInfo)
