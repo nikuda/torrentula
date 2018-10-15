@@ -5,7 +5,7 @@ import System.Environment
 import Data.BEncode
 import Data.BEncode.Types (BDict)
 import qualified Data.ByteString as BS
-import Metainfo
+import MetaInfo
 
 main :: IO ()
 main = do

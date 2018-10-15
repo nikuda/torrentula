@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Metainfo where
+module MetaInfo where
 
 import Prelude hiding (length)
 import Data.ByteString (ByteString)

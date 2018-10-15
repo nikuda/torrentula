@@ -13,7 +13,7 @@ cabal-version:       >=1.10
 
 executable torrentula
   main-is:             Main.hs
-  other-modules:       Metainfo
+  other-modules:       MetaInfo
   build-depends:       base >=4.11
                      , network-uri >=2.6
                      , bencoding >=0.4.4
