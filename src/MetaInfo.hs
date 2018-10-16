@@ -9,8 +9,8 @@ import Data.BEncode
 import Network.URI (URI)
 import GHC.Generics
 
-newtype Announce = Announce URI
-  deriving (Eq, Show)
+newtype Announce = Announce ByteString
+  deriving (Generic, Eq, Read, Show)
 
 newtype FileName = FileName ByteString
   deriving (Generic, Eq, Read, Show)
@@ -51,15 +51,18 @@ data File = File
 
 --
 
+instance BEncode Announce where
+  fromBEncode = fromDict $ Announce <$>! "announce"
+
 instance BEncode FileName where
   fromBEncode = fromDict $ FileName <$>! "name"
 
 instance BEncode FileInfo where
   toBEncode FileInfo { name = fiName, length = fiLength } = toDict $
-        "name"    .=! fiName
+       "name"    .=! fiName
     .: "length"   .=! fiLength
     .: endDict
 
   fromBEncode = fromDict $
     FileInfo <$>! "name"
-             <*>! "length"
+             <*>! "name"

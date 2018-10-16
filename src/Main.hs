@@ -12,6 +12,6 @@ main = do
   path : _ <- getArgs
   content  <- BS.readFile path
 
-  case decode content :: (Result BDict) of
+  case decode content :: Result BValue of
     Left  err -> hPutStrLn stderr err
-    Right ben -> print $ (fromBEncode $ toBEncode ben :: Result FileInfo)
+    Right ben -> print $ (fromBEncode $ toBEncode ben :: Result Announce)
